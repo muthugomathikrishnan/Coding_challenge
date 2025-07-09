@@ -1,6 +1,6 @@
 // link : https://leetcode.com/problems/set-matrix-zeroes/
 
-// Solution 1:
+// Solution : 1
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
@@ -26,9 +26,26 @@ public:
 // SC -> O(n*m)
 
 
+// Solution : 2
 
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n=matrix.size(),m=matrix[0].size();
+        vector<int>row(n,0),col(m,0);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++) if(!matrix[i][j]) {row[i]=1;col[j]=1;}
+        }
 
-// Solution 2:
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++) if(row[i] || col[j]) matrix[i][j]=0;
+        }
+    }
+};
+// TC -> O(N*M)
+// SC -> O(N+M)
+
+// Solution : 3
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
