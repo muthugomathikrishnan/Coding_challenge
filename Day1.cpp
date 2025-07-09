@@ -4,6 +4,28 @@ class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
       int n=matrix.size(),m=matrix[0].size();
+      vector<vector<int>>visit=matrix;
+      for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(!matrix[i][j]){
+                for(int k=0;k<m;k++) visit[i][k]=0;
+                for(int k=0;k<n;k++) visit[k][j]=0;
+            }
+        }
+      }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++) matrix[i][j]=visit[i][j];
+        }
+    }
+};
+
+// TC ->O(n * m * (n+m))
+// SC -> O(n*m)
+// Solution 1:
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+      int n=matrix.size(),m=matrix[0].size();
       int col0=1;
       for(int i=0;i<n;i++){
         if(!matrix[i][0]) col0=0;
