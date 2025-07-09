@@ -1,4 +1,5 @@
 // link : https://leetcode.com/problems/set-matrix-zeroes/
+
 // Solution 1:
 class Solution {
 public:
@@ -19,9 +20,15 @@ public:
     }
 };
 
+
+
 // TC ->O(n * m * (n+m))
 // SC -> O(n*m)
-// Solution 1:
+
+
+
+
+// Solution 2:
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
@@ -43,3 +50,7 @@ public:
 };
 // TC -> O(N*M)
 // SC -> O(1)
+
+
+
+
