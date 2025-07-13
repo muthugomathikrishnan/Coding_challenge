@@ -259,9 +259,9 @@ public:
 // SC -> O(N)
 
 
-## Max width of Tree:
+// Max width of Tree:
 
-```` cpp
+
 class Solution {
 
 public:
@@ -315,9 +315,8 @@ public:
 };
 
 
-## Root - some child:
+// Root - some child:
 
-```` cpp
   
 
 class Solution {
@@ -333,13 +332,11 @@ public:
     }
 
 };
-````
 
 
-## children-sum-parent:
 
-```` cpp
-
+// children-sum-parent:
+ 
 class Solution {
   public:
     int isSumProperty(Node *root) {
@@ -368,7 +365,8 @@ class Solution {
         return 1;
     }
 };
-````
+
+
 # SQL 
 ## 20 [Monthly Transaction](https://leetcode.com/problems/monthly-transactions-i/submissions/1689299639/?envType=study-plan-v2&envId=top-sql-50)
 
