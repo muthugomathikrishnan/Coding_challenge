@@ -1,0 +1,96 @@
+
+# SQL 
+## 20 [Monthly Transaction](https://leetcode.com/problems/monthly-transactions-i/submissions/1689299639/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select to_char(trans_date,'YYYY-MM') as month, country,count(id) as trans_count, sum(case when state='approved' then 1 else 0 end) as approved_count, sum(amount) as trans_total_amount, sum(case when state='approved' then amount else 0 end) as approved_total_amount
+
+from Transactions
+
+group by to_char(trans_date,'YYYY-MM') , country;
+````
+
+## 21 [Immediate food delivery](https://leetcode.com/problems/immediate-food-delivery-ii/description/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select round(avg(case when order_date=customer_pref_delivery_date then 1 else 0 end)* 100.0,2) as immediate_percentage
+
+from Delivery
+
+where (customer_id, order_date) in
+
+(select Delivery.customer_id,min(order_date) from Delivery
+
+group by customer_id);
+````
+
+## 22 [Game-play-analysis](https://leetcode.com/problems/game-play-analysis-iv/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select round( 1.0 *count(player_id)/(select count(distinct player_id) from Activity),2) fraction
+from Activity
+where (player_id,event_date) in (select player_id,min(event_date)+1 from Activity group by player_id)
+````
+##  23[unique subject](https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select teacher_id ,count(distinct subject_id) as cnt from Teacher
+group by 1
+````
+
+## 24 Active-users:
+
+```` sql
+select activity_date as day, count(distinct user_id) as active_users
+from Activity where activity_date between '2019-06-28' and '2019-07-27'
+group by 1
+````
+
+```` sql
+select activity_date as day, count(distinct user_id) as active_users
+from Activity where  
+'2019-07-27'::date - activity_date<30  
+and
+'2019-07-27'::date - activity_date >=0
+group by 1
+````
+
+
+## 25 Study_plan :
+
+```` sql
+
+select product_id ,year as first_year, quantity,price
+from Sales
+where (product_id,year) in (select product_id, min(year) from Sales group by 1)
+````
+
+## 26 classes with least 5:
+
+```` sql
+select class
+from Course
+group by class
+having count (distinct student) >=5
+````
+
+
+## 27 Followers_count :
+
+```` sql
+select user_id, count(distinct follower_id) as followers_count
+from Followers
+group by 1;
+````
+
+## 28 Customers Who Bought All Products :
+
+```` sql
+select customer_id
+
+from Customer
+
+group by customer_id
+
+having count(distinct product_key)=(select count(product_key) from Product)
+````
