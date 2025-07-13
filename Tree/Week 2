@@ -1,0 +1,466 @@
+ 
+
+// Morris Inorder traversal :
+
+//It based on thread connection:
+
+  
+
+vector<int> getInOrderTraversal(TreeNode *root)
+
+{
+
+    TreeNode* curr= root;
+
+    vector<int>Inorder;
+
+  
+
+    while(curr){
+
+        if(!curr->left){ Inorder.push_back(curr->data); curr=curr->right;}
+
+  
+
+        else {
+
+            TreeNode * prev=curr->left;
+
+            while(prev->right && prev->right!=curr) prev=prev->right;
+
+  
+
+            if(!prev->right) {prev->right=curr; curr=curr->left;}
+
+            else {prev->right=NULL; Inorder.push_back(curr->data); curr=curr->right;}
+
+        }
+
+    }
+
+    return Inorder;
+
+}
+// TC -> O(N);
+// SC -> O(1);
+
+  // In pre_order :
+
+
+else {
+
+            TreeNode * prev=curr->left;
+
+            while(prev->right && prev->right!=curr) prev=prev->right;
+
+  
+
+            if(!prev->right) {prev->right=curr; Inorder.push_back(curr->data); curr=curr->left;}
+
+            else {prev->right=NULL; curr=curr->right;}
+
+        }
+ 
+ 
+// Tree to LL:
+// Recursion :
+
+
+  
+
+class Solution {
+
+public:
+
+    TreeNode * prev=NULL;
+
+    void flatten(TreeNode* root) {
+
+        if(!root) return;
+
+        flatten(root->right);
+
+        flatten(root->left);
+
+        root->right=prev;
+
+        root->left=NULL;
+
+        prev=root;
+
+    }
+
+};
+// TC -> O(N)
+// SC -> O(N)
+
+
+//  iterative method :
+
+  
+
+class Solution {
+
+public:
+
+    TreeNode * prev=NULL;
+
+    void flatten(TreeNode* root) {
+
+        if(!root) return;
+
+        stack<TreeNode *>st;
+
+        st.push(root);
+
+        while(!st.empty()){
+
+            TreeNode * curr=st.top();
+
+            st.pop();
+
+            if(curr->right) st.push(curr->right);
+
+            if(curr->left) st.push(curr->left);
+
+            curr->left=NULL;
+
+            if(!st.empty()) curr->right=st.top();
+
+        }
+
+    }
+};
+// TC -> O(N)
+// SC -> O(N)
+
+
+// Morris traversal method:
+
+
+  
+
+class Solution {
+
+public:
+
+    TreeNode * prev=NULL;
+
+    void flatten(TreeNode* root) {
+
+        if(!root) return;
+
+        TreeNode* curr=root;
+
+  
+
+        while(curr){
+
+            if(curr->left){
+
+                TreeNode* prev=curr->left;
+
+                while(prev->right && prev->right!=curr)
+
+                    prev=prev->right;
+
+                prev->right=curr->right;
+
+                curr->right=curr->left;
+
+                curr->left=NULL;
+
+            }
+
+            curr=curr->right;
+
+        }        
+
+  }
+};
+
+// TC -> O(N)
+// SC -> O(1)
+
+
+// LCA :
+
+// Brute force approach :
+
+class Solution {
+private:
+
+    bool getpath(TreeNode * root, int v, vector<TreeNode *>&arr){
+
+        if(!root) return false;
+
+        arr.push_back(root);
+
+        if(root->val==v) return true;
+
+        if(getpath(root->left,v,arr) || getpath(root->right,v,arr)) return true;
+
+        arr.pop_back();
+
+        return false;
+
+    }
+
+public:
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+
+        vector<TreeNode*>path_p,path_q;
+
+        getpath(root,p->val,path_p);
+
+        getpath(root,q->val,path_q);
+
+        int i=0;
+
+        while(i<path_p.size() && i<path_q.size() && path_p[i]==path_q[i]) i++;
+
+        return path_p[i-1];
+
+    }
+
+};
+
+// TC -> O(N) + O(N)
+// SC -> O(N) + O(N)
+
+
+ 
+// Optimal solution:
+
+  
+
+class Solution {
+
+public:
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+
+        if(!root || root==p || root==q) return root;
+
+        TreeNode * left=lowestCommonAncestor(root->left,p,q);
+
+        TreeNode * right=lowestCommonAncestor(root->right,p,q);
+
+        if(left && right) return root;
+
+        return right ? right : left;
+
+    }
+
+};
+
+// TC -> O(N)
+// SC -> O(N)
+
+
+## Max width of Tree:
+
+```` cpp
+class Solution {
+
+public:
+
+    int widthOfBinaryTree(TreeNode* root) {
+
+        if(!root) return 0;
+
+        queue<pair<TreeNode*,long long>>q;
+
+        q.push({root,0});
+
+        long long ans=0;
+
+        while(!q.empty()){
+
+            int s=q.size();
+
+            long long m=q.front().second;
+
+            long long first=0,last=0;
+
+            for(int i=0;i<s;i++){
+
+                long long id=q.front().second-m;
+
+                TreeNode * curr=q.front().first;
+
+                q.pop();
+
+  
+
+                if(i==0) first=id;
+
+                if(i==s-1) last=id;
+
+                if(curr->left) q.push({curr->left, 2*id+1});
+
+                if(curr->right) q.push({curr->right, 2*id+2});
+
+            }
+
+            ans=max(ans,last-first+1);
+
+        }
+
+        return ans;
+
+    }
+
+};
+
+
+## Root - some child:
+
+```` cpp
+  
+
+class Solution {
+
+public:
+
+    bool checkTree(TreeNode* root) {
+
+       if(!root)  return true;
+
+       return root->val==root->left->val + root->right->val;        
+
+    }
+
+};
+````
+
+
+## children-sum-parent:
+
+```` cpp
+
+class Solution {
+  public:
+    int isSumProperty(Node *root) {
+        if(!root) return 1;
+        queue<Node *>q;
+        q.push(root);
+        while(!q.empty()){
+            Node * curr=q.front();
+            q.pop();
+            
+            if(!curr->left && !curr->right) continue;
+            int child_sum=0;
+            
+            if(curr->left){
+                child_sum+=curr->left->data;
+                q.push(curr->left);
+            }
+            
+            if(curr->right){
+                child_sum+=curr->right->data;
+                q.push(curr->right);
+            }
+            
+            if(child_sum !=curr->data) return 0;
+        }
+        return 1;
+    }
+};
+````
+# SQL 
+## 20 [Monthly Transaction](https://leetcode.com/problems/monthly-transactions-i/submissions/1689299639/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select to_char(trans_date,'YYYY-MM') as month, country,count(id) as trans_count, sum(case when state='approved' then 1 else 0 end) as approved_count, sum(amount) as trans_total_amount, sum(case when state='approved' then amount else 0 end) as approved_total_amount
+
+from Transactions
+
+group by to_char(trans_date,'YYYY-MM') , country;
+````
+
+## 21 [Immediate food delivery](https://leetcode.com/problems/immediate-food-delivery-ii/description/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select round(avg(case when order_date=customer_pref_delivery_date then 1 else 0 end)* 100.0,2) as immediate_percentage
+
+from Delivery
+
+where (customer_id, order_date) in
+
+(select Delivery.customer_id,min(order_date) from Delivery
+
+group by customer_id);
+````
+
+## 22 [Game-play-analysis](https://leetcode.com/problems/game-play-analysis-iv/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select round( 1.0 *count(player_id)/(select count(distinct player_id) from Activity),2) fraction
+from Activity
+where (player_id,event_date) in (select player_id,min(event_date)+1 from Activity group by player_id)
+````
+##  23[unique subject](https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/?envType=study-plan-v2&envId=top-sql-50)
+
+```` sql
+select teacher_id ,count(distinct subject_id) as cnt from Teacher
+group by 1
+````
+
+## 24 Active-users:
+
+```` sql
+select activity_date as day, count(distinct user_id) as active_users
+from Activity where activity_date between '2019-06-28' and '2019-07-27'
+group by 1
+````
+
+```` sql
+select activity_date as day, count(distinct user_id) as active_users
+from Activity where  
+'2019-07-27'::date - activity_date<30  
+and
+'2019-07-27'::date - activity_date >=0
+group by 1
+````
+
+
+## 25 Study_plan :
+
+```` sql
+
+select product_id ,year as first_year, quantity,price
+from Sales
+where (product_id,year) in (select product_id, min(year) from Sales group by 1)
+````
+
+## 26 classes with least 5:
+
+```` sql
+select class
+from Course
+group by class
+having count (distinct student) >=5
+````
+
+
+## 27 Followers_count :
+
+```` sql
+select user_id, count(distinct follower_id) as followers_count
+from Followers
+group by 1;
+````
+
+## 28 Customers Who Bought All Products :
+
+```` sql
+select customer_id
+
+from Customer
+
+group by customer_id
+
+having count(distinct product_key)=(select count(product_key) from Product)
+````
