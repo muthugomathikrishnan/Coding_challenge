@@ -81,3 +81,42 @@ public:
 
 // TC -> O(N)
 // SC -> O(N)
+
+
+
+// Solution 2: dfs 
+
+
+class Solution {
+private:
+    void find_parent(TreeNode *node,TreeNode * parent, unordered_map<TreeNode*, TreeNode*>&parent_track ){
+        if(!node) return;
+        parent_track[node]=parent;
+        find_parent(node->left,node,parent_track);
+        find_parent(node->right,node,parent_track);
+    }
+
+    void find_ans(unordered_map<TreeNode*, TreeNode*>&parent_track,unordered_set<TreeNode*>&st, TreeNode * node,int k,int ds, vector<int>&ans){
+        if(!node || st.find(node)!=st.end()) return ;
+        st.insert(node);
+        if(ds==k){ ans.push_back(node->val); return ;}
+        find_ans(parent_track,st,node->left,k,ds+1,ans);
+        find_ans(parent_track,st,node->right,k,ds+1,ans);
+        find_ans(parent_track,st,parent_track[node],k,ds+1,ans);
+        
+    }
+public:
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        if(!root) return {};
+        unordered_map<TreeNode* , TreeNode*>parent_track;
+        find_parent(root,nullptr, parent_track);
+        vector<int>ans;
+        unordered_set<TreeNode *>st;
+        find_ans(parent_track,st,target,k,0,ans);
+        return ans;
+    }
+};
+
+
+// TC -> O(N)
+// SC -> O(N)
