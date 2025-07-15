@@ -104,3 +104,20 @@ from Employees E1  join Employees E2
 on E1.employee_id = E2.reports_to
 group by  E1.employee_id,E1.name
 order by E1.employee_id;
+
+
+// 31 : Primary Department for Each Employee
+
+SELECT employee_id, department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+
+UNION
+
+SELECT employee_id, department_id
+from Employee
+where employee_id in 
+(select employee_id
+from Employee
+group by employee_id
+having count(*)=1)
