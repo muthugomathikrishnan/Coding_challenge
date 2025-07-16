@@ -26,3 +26,25 @@ public:
 
 // TC -> O(l1 * l2)
 // SC -> O(1)
+
+
+// Q2 : Related pbm :https://leetcode.com/problems/repeated-substring-pattern/
+
+// Solution 1:
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int n=s.size();
+        for(int len=1;len<=n/2;len++){
+            if( n % len !=0) continue;
+            string r="";
+            string sub=s.substr(0,len);
+            for(int i=0;i<n/len;i++) r+=sub;
+            if(r==s) return true;  
+        }
+        return false;
+    }
+};
+
+// TC -> O(N^2)
+// SC -> O(n)
