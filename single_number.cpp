@@ -19,6 +19,35 @@ public:
 
 
 // Solution 2: using hash map
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int n=nums.size();
+        if(n==1) return nums[0];
+        unordered_map<int,int>mp;
+        for(int i: nums) mp[i]++;
+        for(auto it : mp){ if(it.second==1) return it.first;}
+        return -1;
+    }
+};
+
+// TC -> O(N)
+// SC -> O(N)
 
 
+// Solution 3 : XOR
+// a^a=0
+// 0^b=b
+// (a^b)^c=a^(b^c)
 
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int result=0;
+        for(int n: nums) result^=n;
+        return result;
+    }
+};
+
+// TC -> O(N)
+// SC -> O(1)
