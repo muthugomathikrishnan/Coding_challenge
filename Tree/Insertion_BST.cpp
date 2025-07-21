@@ -1,4 +1,4 @@
-
+// S1=iterative
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int val) {
@@ -18,3 +18,21 @@ public:
 
 // TC -> O(log n)
 // SC -> O(1)
+
+
+// S2 : recursion 
+
+class Solution {
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+     if(!root) return new TreeNode(val);
+     if(val<root->val) root->left=insertIntoBST(root->left,val);
+     if(val>root->val) root->right=insertIntoBST(root->right,val);
+     return root;           
+    }
+};
+
+/*
+Time Complexity (TC): O(H)
+Space Complexity (SC): O(H)
+*/
