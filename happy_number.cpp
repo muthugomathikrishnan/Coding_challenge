@@ -2,7 +2,7 @@
 class Solution {
     int square(int n){
         int num=0;
-        while(n!=0){
+        while(n){
             int digit=n%10;
             num+=digit*digit;
             n/=10;
