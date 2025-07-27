@@ -45,3 +45,47 @@ public:
 };
 // TC -> O(N)
 // SC -> O(N)
+
+
+// Optimal Solution :
+
+class BSTIterator{
+    private: 
+    bool reverse;
+    stack<TreeNode *>st;
+    void PushAll(TreeNode * root){
+        while(root){
+            st.push(root);
+            root = reverse ? root->right : root->left;
+        }
+    }
+
+    public:
+        BSTIterator(TreeNode * root,bool Isreverse){
+            reverse=Isreverse;
+            PushAll(root);
+        }
+
+        int next(){
+            TreeNode * curr=st.top();st.pop();
+            if(!reverse) PushAll(curr->right);
+            else PushAll(curr->left);
+            return curr->val; 
+        }
+};
+
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if(!root) return 0;
+        BSTIterator l=BSTIterator(root,false);
+        BSTIterator r=BSTIterator(root,true);
+        int i=l.next(),j=r.next();
+        while(i<j){
+            if(i+j==k) return true;
+            if(i+j<k) i=l.next();
+            else j=r.next();
+        }
+        return false;
+    }
+};
