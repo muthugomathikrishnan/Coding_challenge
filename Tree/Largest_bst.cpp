@@ -24,3 +24,37 @@ class Solution {
 
 // Time Complexity (TC): O(N²)
 // Space Complexity (SC): O(H)
+
+
+// Optimal sol
+class Nodeval{
+    public:
+    int min_v,max_v,size;
+    Nodeval(int mini,int maxi,int s){
+        this->min_v=mini;
+        this->max_v=maxi;
+        this->size=s;
+    }
+};
+
+class Solution {
+private:
+    Nodeval bsthelper(Node* root) {
+        if(!root) return Nodeval(INT_MAX,INT_MIN,0);
+        auto left=bsthelper(root->left);
+        auto right=bsthelper(root->right);
+        
+        if(left.max_v<root->data && root->data<right.min_v)
+            return Nodeval(min(left.min_v,root->data),max(right.max_v,root->data),left.size+right.size+1);
+        return Nodeval(INT_MIN,INT_MAX,max(left.size,right.size));
+    }
+
+public:
+    int largestBst(Node* root) {
+        return bsthelper(root).size;
+    }
+};
+
+
+// TC -> O(N)
+// SC -> O(1)
