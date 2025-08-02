@@ -42,6 +42,24 @@ public:
 // TC -> O(N long N)
 // SC -> O(1)
 
+
+// Sol 3: using hash 
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>temp(n+1,0);
+        for(int i:nums) temp[i]++;
+        for(int i=0;i<=n;i++) { if(temp[i]==0) return i;}
+        return 0;
+    }
+};
+
+
+// TC -> O(N)
+// SC -> O(N)
+
 // Optimal Solution 
 
 class Solution {
