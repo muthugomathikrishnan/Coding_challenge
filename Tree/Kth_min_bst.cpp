@@ -22,3 +22,31 @@ public:
 
 // TC -> O(N)
 // SC -> O(N)
+
+
+// Sol 2 : optimal 
+
+
+class Solution {
+private:
+    void Inorder(TreeNode * root,int k ,int &count,int &ans){
+        if(!root || count>=k) return ;
+        Inorder(root->left,k,count,ans);
+        count++;
+        if(count==k){
+            ans=root->val;
+            return;
+        }
+        Inorder(root->right,k,count,ans);
+    }
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        if(!root) return -1;
+        int ans=-1,count=0;
+        Inorder(root,k,count,ans);
+        return ans;
+    }
+};
+
+// TC -> O(K)
+// SC -> O(H)
