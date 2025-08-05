@@ -29,3 +29,23 @@ public:
 
 // TC -> O(N Log N)
 // SC -> O(1)
+
+
+// Sol 2 : optimal Solution 
+
+class Solution {
+private:
+    bool check(TreeNode* root, long mini, long maxi){
+        if(!root) return 1;
+        if(root->val >=maxi || root->val<=mini) return false;
+        return check(root->left,mini,root->val) && check(root->right,root->val,maxi);
+
+    }
+public:
+    bool isValidBST(TreeNode* root) {
+        return check(root,LONG_MIN,LONGw_MAX);
+    }
+};
+
+// TC -> O(N)
+// SC -> O(h)
