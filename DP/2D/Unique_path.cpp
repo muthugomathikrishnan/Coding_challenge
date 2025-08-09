@@ -35,3 +35,32 @@ public:
         return dp[m-1][n-1];
     }
 };
+
+
+// Optimal 
+
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<int>prev(n,0),curr(n,0);
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 && j==0) {
+                    prev[i]=1;
+                    curr[i]=1;
+                    }
+                else {
+                    int down=0,right=0;
+                    if(i>0)
+                        down=prev[j];
+                    if(j>0)
+                        right=curr[j-1];
+                    curr[j]=down+right;
+            }
+
+            }
+            prev=curr;
+        }
+        return prev[n-1];
+    }
+};
