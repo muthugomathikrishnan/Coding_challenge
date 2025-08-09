@@ -41,3 +41,32 @@ public:
         return dp[n-1][m-1];
     }
 };
+
+// Optimal 
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int m=grid.size() ;
+        int n=grid[0].size();
+        vector<int>prev(n,0),curr(n,0);
+        int right=INT_MAX,down=INT_MAX;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 and j==0 ) {
+                    prev[j]=grid[i][j];
+                    curr[j]=grid[i][j];
+                    }
+                else {
+                    if(j>0) right= curr[j-1];
+                    if(i>0) down=prev[j];
+                    curr[j]=min(down,right)+grid[i][j];
+              }
+                }
+                prev=curr;
+                }
+
+        
+    return prev[n-1];
+    }
+    
+};
