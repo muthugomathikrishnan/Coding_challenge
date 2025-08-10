@@ -31,3 +31,30 @@ public:
 
 // TC -> 2187 → O(1) (constant time)
 // SC -> O(1)
+
+
+
+// Sol 2: Valid Sudoku – Hash Set Single-Pass Solution
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        unordered_set<int> row[9],col[9],box[9];
+        for(int r=0;r<9;r++){
+            for(int c=0;c<9;c++){
+                if(board[r][c]=='.') continue;
+                char val=board[r][c];
+                int b_index=(r/3)*3+(c/3);
+                if(row[r].count(val) || col[c].count(val) || 
+                    box[b_index].count(val) ) return 0;
+                    row[r].insert(val);
+                    col[c].insert(val);
+                    box[b_index].insert(val);
+            }
+        }
+        return 1;
+    }
+};
+// TC -> 81 → O(1) (constant time)
+
+// SC -> O(1)
