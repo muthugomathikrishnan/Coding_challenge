@@ -22,3 +22,20 @@ public:
         return count;
     }
 };
+
+
+// Sol 2:without stack
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        int count=0,open=0;
+        for(char c:s){
+            if(c=='(') open++;
+            else if(c==')'){
+                if(open>0) open--;
+                else count++;
+            }
+            }
+        return count+open;
+    }
+};
