@@ -6,7 +6,7 @@ public:
         int n=s.length();
         if(n==0) return 0;
         int i=0;
-        while(i,n && s[i]==' ') i++;
+        while(i<n && s[i]==' ') i++;
         int sign=1;
         if(i<n && (s[i]=='-' || s[i]=='+')){
             sign=(s[i]=='-') ? -1:1;
