@@ -13,3 +13,16 @@ class Solution {
         
     }
 };
+
+
+// Sol 2:
+class Solution {
+  public:
+    int missingNum(vector<int>& arr) {
+        long long n = arr.size();
+        long long expected = 1LL * (n + 1) * (n + 2) / 2;  // force 64-bit
+        long long actual = 0;
+        for (int x : arr) actual += x;                      // no shadowing
+        return (int)(expected - actual);
+    }
+};
