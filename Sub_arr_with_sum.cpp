@@ -21,3 +21,32 @@ class Solution {
         
     }
 };
+
+// sol 2:
+class Solution {
+  public:
+    vector<int> subarraySum(vector<int> &arr, int target) {
+        int n=arr.size();
+        
+        vector<int>ans(2,0);
+        int e=0,s=0;
+        int curr=0;
+        for(int i=0;i<n;i++){
+            curr+=arr[i];
+            if(curr>target){
+                e=i;
+                while(curr>target && s<e){
+                    curr-=arr[s];
+                    s++;
+                }
+                if(curr==target){
+                    ans[0]=s+1;
+                    ans[1]=e+1;
+                    return ans;
+                }
+            }
+        }
+        return {-1};
+        
+    }
+};
