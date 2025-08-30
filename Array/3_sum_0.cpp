@@ -14,3 +14,25 @@ class Solution {
     return 0;
     }
 };
+
+
+#include <bits/stdc++.h> 
+vector<vector<int>> findTriplets(vector<int>arr, int n) {
+	sort(arr.begin(),arr.end());
+	vector<vector<int>>ans;
+	for(int i=0;i<n-2;i++){
+		if(i>0 && arr[i]==arr[i-1]) continue;
+		int l=i+1,r=n-1;
+		while(l<r){
+			if(arr[i]+arr[l]+arr[r]==0){
+				ans.push_back(arr[i],arr[l],arr[k]);
+				l++;
+				r--;
+				ans.push_back(temp);
+			}
+			else if(arr[i]+arr[l]+arr[r]<0) l++;
+			else r--;
+		}
+	}
+	return ans;
+}
