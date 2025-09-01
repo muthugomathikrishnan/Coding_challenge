@@ -17,3 +17,49 @@ class MyStack {
     }
 };
 
+
+
+// sol :
+
+// Stack class.
+class Stack {
+    vector<int>ans;
+    int s,i;
+public:
+    
+    Stack(int capacity) {
+        s=capacity;
+        i=0;
+    }
+
+    void push(int num) {
+        if(i<s){
+            ans.push_back(num);
+            i++;
+        }
+    }
+
+    int pop() {
+        if(!ans.empty()){
+            int r=ans.back();
+            ans.pop_back();
+            i--;
+            return r;
+        }
+        return -1;
+    }
+    
+    int top() {
+        if(!ans.empty()) return ans.back();
+        return -1;
+    }
+    
+    int isEmpty() {
+        return ans.empty();
+    }
+    
+    int isFull() {
+        return i==s;
+    }
+    
+};
